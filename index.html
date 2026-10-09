@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Intensivo - Projeto de preparação para vestibulinhos da EMEF Ineura Rodrigues de Lima">
+
+    <title>INTENSIVO | Professora Noemi</title>
+
+    <link rel="stylesheet" href="css/style.css">
+<!-- Estilos restritos ao mural e às atividades atualizadas. -->
+<style>
+#fotos .galeria { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+#fotos .galeria figure { margin: 0; min-width: 0; }
+#fotos .galeria a { display: block; border-radius: 12px; overflow: hidden; }
+#fotos .galeria img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: rgba(127,127,127,.12); }
+#fotos .galeria a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+#fotos figcaption { padding: .7rem 0; font-size: .9rem; }
+#fotos .mural-convite { margin-top: 1.5rem; line-height: 1.7; }
+.aula-fonte { font-size: .85rem; opacity: .85; line-height: 1.5; }
+.aula-pergunta { font-size: 1.2rem; line-height: 1.65; margin: 1rem 0; }
+.aula-opcoes { display: grid; gap: .7rem; margin: 1rem 0; }
+.aula-opcao, .aula-acao { font: inherit; cursor: pointer; border-radius: 10px; padding: .9rem 1rem; }
+.aula-opcao { width: 100%; text-align: left; color: inherit; border: 1px solid currentColor; background: transparent; line-height: 1.5; }
+.aula-opcao:focus-visible, .aula-acao:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.aula-opcao:disabled { cursor: default; opacity: .75; }
+.aula-opcao[data-resposta="correta"] { border-width: 3px; border-style: double; font-weight: 700; opacity: 1; }
+.aula-opcao[data-resposta="errada"] { border-style: dashed; }
+.aula-retorno { line-height: 1.7; margin: 1rem 0; padding: 1rem; border-left: 3px solid currentColor; background: rgba(127,127,127,.1); }
+.aula-acao { color: inherit; border: 1px solid currentColor; background: rgba(127,127,127,.12); margin-top: .75rem; }
+.aula-progresso { line-height: 1.5; font-size: .9rem; }
+.aula-revisao { padding: 1rem 0; border-top: 1px solid rgba(127,127,127,.3); line-height: 1.6; }
+.aula-reflexao { display: grid; gap: .5rem; margin-top: 1.5rem; line-height: 1.5; }
+.aula-reflexao textarea { width: 100%; box-sizing: border-box; font: inherit; padding: .8rem; border-radius: 8px; border: 1px solid currentColor; color: inherit; background: transparent; resize: vertical; }
+@media (max-width: 800px) { #fotos .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { #fotos .galeria { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+<style id="estudosEstilos">
+/* Novas seções: usam as classes e as cores herdadas do projeto original. */
+.intensivo-extra { scroll-margin-top: 100px; }
+.intensivo-extra .texto-secao, .intensivo-extra p { line-height: 1.7; }
+.extra-atalhos { display: flex; flex-wrap: wrap; gap: .6rem 1.4rem; padding: 1.5rem max(1rem, 5%); border-bottom: 1px solid rgba(127,127,127,.25); }
+.extra-atalhos a, .extra-links a, .extra-faq a { color: inherit; text-underline-offset: .2em; }
+.extra-atalhos a:focus-visible, .extra-links a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.intensivo-extra .extra-informacoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.intensivo-extra .extra-informacoes article { min-width: 0; padding: 1.5rem; border: 1px solid rgba(127,127,127,.3); border-radius: 12px; }
+.intensivo-extra .extra-nota { font-size: .9rem; line-height: 1.7; margin-top: 1.2rem; }
+.extra-links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.5rem; }
+.trilha-resumo { display: grid; gap: .8rem; margin: 1.7rem 0 2rem; }
+.trilha-resumo progress { display: block; width: 100%; height: .7rem; accent-color: var(--primary-color, #2869ae); }
+.trilha-area { padding: 1.3rem 0; border-top: 1px solid rgba(127,127,127,.3); }
+.trilha-area h3 { margin-bottom: .5rem; }
+.trilha-lista { list-style: none; margin: 0; padding: 0; }
+.trilha-item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(127,127,127,.2); }
+.trilha-item label { display: flex; align-items: flex-start; gap: .85rem; cursor: pointer; line-height: 1.5; }
+.trilha-item input[type="checkbox"] { flex-shrink: 0; width: 1.2rem; height: 1.2rem; margin-top: .15rem; accent-color: var(--primary-color, #2869ae); }
+.trilha-item small { display: block; margin-top: .35rem; font-size: .85rem; opacity: .85; }
+.trilha-item[data-revisado="true"] strong::after { content: " ✓"; }
+.trilha-praticar { flex-shrink: 0; font: inherit; font-size: .9rem; padding: .5rem .8rem; border: 1px solid currentColor; border-radius: 6px; color: inherit; background: transparent; cursor: pointer; }
+.trilha-praticar:focus-visible, .trilha-item input:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.evolucao-numeros { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.evolucao-numeros > div { min-width: 0; }
+.evolucao-numeros strong { display: block; }
+.evolucao-numeros span { display: block; }
+.extra-mensagem { margin: 1.5rem 0; }
+.evolucao-tabela-rolagem { max-width: 100%; overflow-x: auto; margin-bottom: 1.5rem; }
+.evolucao-tabela { width: 100%; border-collapse: collapse; text-align: left; }
+.evolucao-tabela caption { text-align: left; font-weight: 700; margin-bottom: 1rem; }
+.evolucao-tabela th, .evolucao-tabela td { padding: .8rem .65rem; border-bottom: 1px solid rgba(127,127,127,.3); white-space: nowrap; }
+.intensivo-extra button:disabled { opacity: .5; cursor: default; }
+.extra-faq details { border-bottom: 1px solid rgba(127,127,127,.35); padding: 1.2rem 0; }
+.extra-faq summary { cursor: pointer; font-size: 1.1rem; font-weight: 600; line-height: 1.5; }
+.extra-faq summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.extra-faq details p { margin: 1rem 0 .2rem; }
+@media (max-width: 600px) {
+    .intensivo-extra .extra-informacoes { grid-template-columns: minmax(0, 1fr); }
+    .trilha-item { align-items: flex-start; flex-direction: column; }
+    .trilha-praticar { margin-left: 2.05rem; }
+    .evolucao-numeros { grid-template-columns: minmax(0, 1fr); }
+    .extra-links { flex-direction: column; gap: 1rem; }
+}
+
+</style>
+</head>
+
+<body>
+<audio id="musica" loop>
+    <source src="assets/audio/audio.mp3" type="audio/mpeg">
+</audio>
+    <!-- ============================= -->
+    <!-- TELA INICIAL -->
+    <!-- ============================= -->
+
+    <section id="intro" class="intro">
+
+        <div class="intro-content">
+
+            <div class="logo">
+                ✦ INTENSIVO
+            </div>
+
+            <p class="subtitulo">
+                EMEF INEURA RODRIGUES DE LIMA
+            </p>
+
+            <h1>
+                Estude.
+                <span>Prepare-se.</span>
+                Conquiste.
+            </h1>
+
+            <p class="descricao">
+                Uma jornada de conhecimento, preparação
+                e novas oportunidades.
+            </p>
+
+            <p class="professora">
+                Professora Noemi
+            </p>
+
+            <button id="startBtn">
+                COMEÇAR →
+            </button>
+
+            <small>
+                A experiência começa após clicar em COMEÇAR.
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- SITE PRINCIPAL -->
+    <!-- ============================= -->
+
+    <main id="site" class="hidden">
+
+
+        <!-- MENU -->
+
+        <header class="menu">
+
+            <div class="mini-logo">
+                ✦ INTENSIVO
+            </div>
+
+            <div class="progresso">
+
+                <span id="progressLabel">
+                    0%
+                </span>
+
+                <div class="barra">
+                    <div id="progressBar"></div>
+                </div>
+
+            </div>
+
+            <button id="soundBtn">
+                🔊
+            </button>
+
+        </header>
+
+
+        <!-- ============================= -->
+        <!-- HOME -->
+        <!-- ============================= -->
+
+        <section id="home" class="hero">
+
+            <div class="hero-conteudo">
+
+                <p class="tag">
+                    UMA JORNADA DE PREPARAÇÃO
+                </p>
+
+                <h2 id="welcomeTitle">
+                    Seu próximo passo começa aqui.
+                </h2>
+
+                <p id="welcomeText">
+                    Conheça o Intensivo, explore suas possibilidades
+                    e teste seus conhecimentos.
+                </p>
+
+                <div class="botoes">
+
+                    <a href="#sobre" class="botao principal">
+                        EXPLORAR JORNADA →
+                    </a>
+
+                    <button id="editProfileBtn"
+                        class="botao secundario">
+                        EDITAR MEU PERFIL
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARTÃO DO ALUNO -->
+
+            <div class="perfil">
+
+                <span>
+                    SEU PERFIL
+                </span>
+
+                <strong id="profileName">
+                    Aluno
+                </strong>
+
+                <p id="profileClass">
+                    9º ano
+                </p>
+
+                <div id="profileGoals"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- SOBRE O INTENSIVO -->
+        <!-- ============================= -->
+
+<nav class="extra-atalhos" aria-label="Atalhos da sua jornada">
+    <a href="#participar">Como participar</a><a href="#trilha">Minha trilha</a>
+    <a href="#evolucao">Minha evolução</a><a href="#acesso-etec">Vestibulinho Etec</a>
+    <a href="#perguntas">Dúvidas frequentes</a>
+</nav>
+
+        <section id="sobre" class="secao">
+
+            <div class="titulo-secao">
+
+                <span>
+                    01
+                </span>
+
+                <div>
+
+                    <p>
+                        CONHEÇA O PROJETO
+                    </p>
+
+                    <h2>
+                        O Intensivo
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="cards">
+
+                <article>
+
+                    <span>
+                        01
+                    </span>
+
+                    <h3>
+                        Preparação
+                    </h3>
+
+                    <p>
+                        Aulas e atividades voltadas à preparação
+                        dos alunos para vestibulinhos e processos
+                        seletivos.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        02
+                    </span>
+
+                    <h3>
+                        Conhecimento
+                    </h3>
+
+                    <p>
+                        Conteúdos de diferentes áreas são revisados
+                        para fortalecer a base necessária para
+                        os próximos desafios.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        03
+                    </span>
+
+                    <h3>
+                        Objetivo
+                    </h3>
+
+                    <p>
+                        Transformar dedicação em oportunidades
+                        e ajudar cada aluno a encontrar seu
+                        próximo caminho.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- LINHA DO TEMPO -->
+
+            <div class="timeline">
+
+                <div>
+
+                    <strong>
+                        2025
+                    </strong>
+
+                    <article>
+
+                        <h3>
+                            O começo
+                        </h3>
+
+                        <p>
+                            O Intensivo começa como uma iniciativa
+                            de preparação para os alunos do 9º ano.
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        2026
+                    </strong>
+
+                    <article>
+
+                        <h3>
+                            Continuidade
+                        </h3>
+
+                        <p>
+                            O projeto continua incentivando novas
+                            turmas a buscarem seus objetivos.
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ∞
+                    </strong>
+
+                    <article>
+
+                        <h3>
+                            Próximos passos
+                        </h3>
+
+                        <p>
+                            Cada nova turma pode escrever uma
+                            nova parte dessa história.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- RESULTADOS -->
+        <!-- ============================= -->
+
+<!-- Informações sobre o projeto. -->
+<section id="participar" class="secao intensivo-extra">
+    <div class="titulo-secao"><span>02</span><div><p>SEU PRIMEIRO PASSO</p><h2>Como participar?</h2></div></div>
+    <p class="texto-secao">O Intensivo é voltado aos alunos do 9º ano que querem se preparar
+        para vestibulinhos, avaliações e outros processos seletivos.</p>
+    <div class="cards extra-informacoes">
+        <article><h3>Para quem?</h3><p>Alunos das turmas de 9º ano da EMEF Ineura Rodrigues de Lima, em Narandiba — SP.</p></article>
+        <article><h3>Quando?</h3><p>Às sextas-feiras, com duas aulas de 50 minutos para cada turma:<br><strong>Alunos do período da manhã:</strong> das 12h30 às 14h10.<br><strong>Alunos do período da tarde:</strong> das 10h30 às 12h10.</p></article>
+        <article><h3>Onde e com quem?</h3><p>Na EMEF Ineura Rodrigues de Lima, com a
+            <strong>Profª Noemi da Silva Campos Cavalcante</strong>.</p></article>
+        <article><h3>Como entrar na turma?</h3><p>Procure a Professora Noemi ou a equipe da escola
+            para confirmar a participação, as vagas e as orientações da sua turma.</p></article>
+    </div>
+    <p class="extra-nota">Organização das aulas de 2026. Confirme eventuais mudanças de horário com a escola.</p>
+    <div class="botoes"><a href="#trilha" class="botao principal">COMEÇAR MINHA TRILHA →</a>
+        <a href="#perguntas" class="botao secundario">TIRAR MINHAS DÚVIDAS</a></div>
+</section>
+
+        <section id="resultados"
+            class="secao escura">
+
+            <div class="titulo-secao">
+
+                <span>
+                    03
+                </span>
+
+                <div>
+
+                    <p>
+                        O QUE JÁ FOI CONSTRUÍDO
+                    </p>
+
+                    <h2>
+                        Resultados que inspiram
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="numeros">
+
+                <div>
+
+                    <strong>
+                        2
+                    </strong>
+
+                    <span>
+                        anos de Intensivo
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        4
+                    </strong>
+
+                    <span>
+                        turmas
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        +30
+                    </strong>
+
+                    <span>
+                        alunos participantes
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        +20
+                    </strong>
+
+                    <span>
+                        aprovações
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="resultado">
+
+                <span>
+                    ●
+                </span>
+
+                <p>
+                    Mais de 30 alunos participaram do Intensivo e mais de 20 aprovações
+                    foram conquistadas em vestibulinhos e processos seletivos.
+                    Cada conquista faz parte dessa história.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- FOTOS -->
+        <!-- ============================= -->
+
+        <!-- Todas as fotografias ficam neste único mural.
+             Arquivos: assets/img/1.jpg a 8.jpg e assets/img/9.jpeg. -->
+        <section id="fotos" class="secao">
+            <div class="titulo-secao">
+                <span>04</span>
+                <div>
+                    <p>MEMÓRIAS DE 2025</p>
+                    <h2>Mural do Intensivo — edição de 2025</h2>
+                </div>
+            </div>
+            <p class="texto-secao">
+                Todas as fotografias deste site são da turma do Intensivo de 2025,
+                a edição do ano passado. São registros de quem já passou por essa jornada.
+            </p>
+            <div class="galeria">
+                <figure>
+                    <a href="assets/img/1.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 1 do Intensivo de 2025">
+                        <img src="assets/img/1.jpg"
+                             alt="Registro 1 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 01 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/2.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 2 do Intensivo de 2025">
+                        <img src="assets/img/2.jpg"
+                             alt="Registro 2 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 02 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/3.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 3 do Intensivo de 2025">
+                        <img src="assets/img/3.jpg"
+                             alt="Registro 3 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 03 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/4.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 4 do Intensivo de 2025">
+                        <img src="assets/img/4.jpg"
+                             alt="Registro 4 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 04 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/5.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 5 do Intensivo de 2025">
+                        <img src="assets/img/5.jpg"
+                             alt="Registro 5 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 05 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/6.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 6 do Intensivo de 2025">
+                        <img src="assets/img/6.jpg"
+                             alt="Registro 6 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 06 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/7.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 7 do Intensivo de 2025">
+                        <img src="assets/img/7.jpg"
+                             alt="Registro 7 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 07 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/8.jpg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 8 do Intensivo de 2025">
+                        <img src="assets/img/8.jpg"
+                             alt="Registro 8 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 08 · Intensivo 2025</figcaption>
+                </figure>
+                <figure>
+                    <a href="assets/img/9.jpeg" target="_blank" rel="noopener"
+                       aria-label="Ampliar registro 9 do Intensivo de 2025">
+                        <img src="assets/img/9.jpeg"
+                             alt="Registro 9 da turma do Intensivo de 2025"
+                             loading="lazy" decoding="async" width="800" height="600">
+                    </a>
+                    <figcaption>Registro 09 · Intensivo 2025</figcaption>
+                </figure>
+            </div>
+            <p class="aviso">Clique em uma foto para ampliar.</p>
+            <p class="mural-convite"><strong>No ano que vem, pode ser você nesse mural!</strong><br>
+                Sua turma também pode escrever uma nova parte dessa história.</p>
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- VESTIBULINHO -->
+        <!-- ============================= -->
+
+        <section id="vestibulinho"
+            class="secao escura">
+
+            <div class="titulo-secao">
+
+                <span>
+                    05
+                </span>
+
+                <div>
+
+                    <p>
+                        ENTENDA O DESAFIO
+                    </p>
+
+                    <h2>
+                        O que é um vestibulinho?
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="etapas">
+
+                <button class="etapa ativa"
+                    data-step="0">
+
+                    01
+                    <span>
+                        O que é?
+                    </span>
+
+                </button>
+
+
+                <button class="etapa"
+                    data-step="1">
+
+                    02
+                    <span>
+                        Preparação
+                    </span>
+
+                </button>
+
+
+                <button class="etapa"
+                    data-step="2">
+
+                    03
+                    <span>
+                        Processo
+                    </span>
+
+                </button>
+
+
+                <div id="stepContent">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- POSSIBILIDADES -->
+        <!-- ============================= -->
+
+<section id="acesso-etec" class="secao escura intensivo-extra">
+    <div class="titulo-secao"><span>06</span><div><p>DA PREPARAÇÃO AO PRÓXIMO PASSO</p><h2>Acesse o Vestibulinho Etec</h2></div></div>
+    <p class="texto-secao">Consulte as inscrições, os cursos disponíveis, o calendário,
+        as provas anteriores e os comunicados diretamente no portal oficial.</p>
+    <div class="botoes"><a href="https://vestibulinho.etec.sp.gov.br/" class="botao principal"
+        target="_blank" rel="noopener noreferrer">IR AO SITE OFICIAL DO VESTIBULINHO ETEC ↗</a></div>
+    <p class="extra-nota">vestibulinho.etec.sp.gov.br · Abre em uma nova aba.</p>
+    <nav class="extra-links" aria-label="Acessos oficiais do Vestibulinho Etec">
+        <a href="https://vestibulinho.etec.sp.gov.br/calendario/" target="_blank" rel="noopener noreferrer">Calendário ↗</a>
+        <a href="https://vestibulinho.etec.sp.gov.br/unidades-cursos/" target="_blank" rel="noopener noreferrer">Unidades e cursos ↗</a>
+        <a href="https://vestibulinho.etec.sp.gov.br/provas-gabaritos/" target="_blank" rel="noopener noreferrer">Provas e gabaritos ↗</a>
+    </nav>
+    <p class="extra-nota">Participar do Intensivo e preencher seu perfil neste site não realiza
+        sua inscrição no Vestibulinho. Siga as instruções do portal oficial.</p>
+</section>
+
+        <section id="caminhos"
+            class="secao">
+
+            <div class="titulo-secao">
+
+                <span>
+                    07
+                </span>
+
+                <div>
+
+                    <p>
+                        POSSIBILIDADES
+                    </p>
+
+                    <h2>
+                        Onde esse sonho pode levar você?
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="caminhos">
+
+                <button class="caminho"
+                    data-path="ETEC">
+
+                    <span>
+                        01
+                    </span>
+
+                    <h3>
+                        ETEC
+                    </h3>
+
+                    <p>
+                        Ensino técnico com diferentes
+                        áreas de formação.
+                    </p>
+
+                    <b>
+                        Saiba mais →
+                    </b>
+
+                </button>
+
+
+                <button class="caminho"
+                    data-path="Instituto Federal">
+
+                    <span>
+                        02
+                    </span>
+
+                    <h3>
+                        Instituto Federal
+                    </h3>
+
+                    <p>
+                        Uma possibilidade de formação
+                        técnica e acadêmica.
+                    </p>
+
+                    <b>
+                        Saiba mais →
+                    </b>
+
+                </button>
+
+
+                <button class="caminho"
+                    data-path="Escolas Técnicas">
+
+                    <span>
+                        03
+                    </span>
+
+                    <h3>
+                        Escolas Técnicas
+                    </h3>
+
+                    <p>
+                        Outros caminhos para desenvolver
+                        conhecimentos e habilidades.
+                    </p>
+
+                    <b>
+                        Saiba mais →
+                    </b>
+
+                </button>
+
+            </div>
+
+
+            <div id="pathInfo"
+                class="path-info hidden">
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- DESAFIOS -->
+        <!-- ============================= -->
+
+<section id="trilha" class="secao intensivo-extra">
+    <div class="titulo-secao"><span>08</span><div><p>UM CONTEÚDO DE CADA VEZ</p><h2>Minha trilha de estudos</h2></div></div>
+    <p class="texto-secao">Escolha um conteúdo, retome suas anotações de aula e marque
+        <strong>“Já revisei”</strong> quando concluir. Você pode desmarcar para revisar novamente.</p>
+    <div class="trilha-resumo"><span id="trilhaResumo" role="status" aria-live="polite">0 conteúdos revisados</span>
+        <progress id="trilhaBarra" value="0" max="20" aria-label="Conteúdos marcados como revisados"></progress></div>
+    <div id="trilhaConteudos"></div>
+    <noscript><p>Ative o JavaScript para marcar sua trilha. Os conteúdos incluem matemática,
+        língua portuguesa, ciências, história e geografia. Retome suas anotações de aula para revisar.</p></noscript>
+    <p id="estudosArmazenamento" class="extra-nota">Suas marcações e resultados ficam neste navegador.
+        Use o mesmo dispositivo para acompanhar sua evolução.</p>
+</section>
+
+        <section id="desafios"
+            class="secao azul">
+
+            <div class="titulo-secao claro">
+
+                <span>
+                    09
+                </span>
+
+                <div>
+
+                    <p>
+                        DESAFIOS RÁPIDOS
+                    </p>
+
+                    <h2>
+                        Sua jornada começa aqui
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="texto-secao">
+                Escolha uma área, responda às questões e fortaleça seus conhecimentos para os próximos desafios.
+            </p>
+
+
+            <div class="materias">
+
+                <button data-subject="Matemática">
+
+                    <span>∑</span>
+
+                    <strong>
+                        Matemática
+                    </strong>
+
+                    <small>
+                        Porcentagem e geometria
+                    </small>
+
+                </button>
+
+
+                <button data-subject="Português">
+
+                    <span>文</span>
+
+                    <strong>
+                        Português
+                    </strong>
+
+                    <small>
+                        Interpretação
+                    </small>
+
+                </button>
+
+
+                <button data-subject="História">
+
+                    <span>◈</span>
+
+                    <strong>
+                        História
+                    </strong>
+
+                    <small>
+                        Bandeiras e fontes históricas
+                    </small>
+
+                </button>
+
+
+                <button data-subject="Geografia">
+
+                    <span>◎</span>
+
+                    <strong>
+                        Geografia
+                    </strong>
+
+                    <small>
+                        Amazônia e território brasileiro
+                    </small>
+
+                </button>
+
+
+                <button data-subject="Ciências">
+
+                    <span>⚗</span>
+
+                    <strong>
+                        Ciências
+                    </strong>
+
+                    <small>
+                        Óptica e meio ambiente
+                    </small>
+
+                </button>
+
+            </div>
+
+
+            <div id="subjectChallenge"
+                class="desafio hidden">
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- DICAS -->
+        <!-- ============================= -->
+
+        <section id="dicas"
+            class="secao">
+
+            <div class="titulo-secao">
+
+                <span>
+                    10
+                </span>
+
+                <div>
+
+                    <p>
+                        PREPARE-SE
+                    </p>
+
+                    <h2>
+                        Dicas para o vestibulinho
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="dicas">
+
+                <article>
+
+                    <span>
+                        01
+                    </span>
+
+                    <h3>
+                        Organize seus estudos
+                    </h3>
+
+                    <p>
+                        Defina horários realistas e mantenha
+                        constância.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        02
+                    </span>
+
+                    <h3>
+                        Pratique questões
+                    </h3>
+
+                    <p>
+                        Resolver exercícios ajuda a reconhecer
+                        padrões e administrar o tempo.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        03
+                    </span>
+
+                    <h3>
+                        Revise
+                    </h3>
+
+                    <p>
+                        Retome conteúdos em que você ainda
+                        sente dificuldade.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        04
+                    </span>
+
+                    <h3>
+                        Cuide do descanso
+                    </h3>
+
+                    <p>
+                        Descanso também faz parte de uma
+                        boa preparação.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- CONTAGEM REGRESSIVA -->
+        <!-- ============================= -->
+
+        <section id="contagem"
+            class="contagem">
+
+            <p>
+                PRÓXIMO DESAFIO
+            </p>
+
+            <h2>
+                VESTIBULINHO ETEC
+            </h2>
+
+            <span>
+                06 DE DEZEMBRO DE 2026
+            </span>
+
+
+            <div id="countdown">
+
+                <div>
+                    <strong id="days">
+                        --
+                    </strong>
+
+                    <small>
+                        DIAS
+                    </small>
+                </div>
+
+
+                <div>
+                    <strong id="hours">
+                        --
+                    </strong>
+
+                    <small>
+                        HORAS
+                    </small>
+                </div>
+
+
+                <div>
+                    <strong id="minutes">
+                        --
+                    </strong>
+
+                    <small>
+                        MINUTOS
+                    </small>
+                </div>
+
+
+                <div>
+                    <strong id="seconds">
+                        --
+                    </strong>
+
+                    <small>
+                        SEGUNDOS
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- QUIZ -->
+        <!-- ============================= -->
+
+        <section id="quiz"
+            class="secao">
+
+            <div class="titulo-secao">
+
+                <span>
+                    11
+                </span>
+
+                <div>
+
+                    <p>
+                        DESAFIO PRINCIPAL
+                    </p>
+
+                    <h2>
+                        Quiz do Intensivo
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="texto-secao">Responda a dez questões de diferentes áreas do conhecimento.
+                Depois de responder, confira a explicação e acompanhe seu desempenho.</p>
+
+            <div class="quiz">
+
+                <div class="quiz-topo">
+
+                    <span id="quizCounter">
+                        Pergunta 1 de 10
+                    </span>
+
+                    <span id="quizScore">
+                        0 acertos
+                    </span>
+
+                </div>
+
+
+                <div class="quiz-barra">
+
+                    <div id="quizProgress">
+                    </div>
+
+                </div>
+
+
+                <div id="quizContent">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- FRASES -->
+        <!-- ============================= -->
+
+<section id="evolucao" class="secao intensivo-extra">
+    <div class="titulo-secao"><span>12</span><div><p>CADA TENTATIVA CONTA</p><h2>Minha evolução</h2></div></div>
+    <p class="texto-secao">Conclua o Quiz do Intensivo para registrar seu resultado.
+        Volte depois de estudar e compare suas tentativas.</p>
+    <div class="numeros evolucao-numeros" aria-label="Resumo dos seus quizzes">
+        <div><strong id="evolucaoTentativas">0</strong><span>quizzes no histórico</span></div>
+        <div><strong id="evolucaoMelhor">—</strong><span>melhor resultado</span></div>
+        <div><strong id="evolucaoUltimo">—</strong><span>último resultado</span></div>
+    </div>
+    <p id="evolucaoMensagem" class="extra-mensagem" role="status" aria-live="polite">Seu primeiro resultado começa com uma tentativa.</p>
+    <div id="evolucaoHistorico"></div>
+    <div class="botoes"><a href="#quiz" class="botao principal">FAZER O QUIZ →</a>
+        <button type="button" id="limparHistoricoEstudos" class="botao secundario" disabled>LIMPAR HISTÓRICO DE QUIZZES</button></div>
+    <p id="evolucaoArmazenamento" class="extra-nota">Histórico deste navegador, com até 50 tentativas.
+        Limpar o histórico não apaga sua trilha de estudos.</p>
+</section>
+
+
+
+
+<section id="perguntas" class="secao escura intensivo-extra">
+    <div class="titulo-secao"><span>13</span><div><p>ANTES DE COMEÇAR</p><h2>Perguntas frequentes</h2></div></div>
+    <div class="extra-faq">
+        <details><summary>Quem pode participar do Intensivo?</summary><p>O projeto atende às turmas de 9º ano
+            da EMEF Ineura Rodrigues de Lima. Procure a Professora Noemi ou a equipe da escola para confirmar sua participação.</p></details>
+        <details><summary>Como funcionam as aulas?</summary><p>O Intensivo acontece às sextas-feiras, com duas aulas de 50 minutos por turma.
+            Para os alunos do período da manhã, o horário é das <strong>12h30 às 14h10</strong>; para os alunos do período da tarde, das <strong>10h30 às 12h10</strong>. As atividades incluem explicações, questões, revisões,
+            trabalho em grupo e simulados mensais.</p></details>
+        <details><summary>Quais conteúdos são trabalhados?</summary><p>Matemática, língua portuguesa,
+            ciências da natureza, história, geografia e atualidades. A preparação inclui Vestibulinho Etec,
+            SARESP, Instituto Federal e processos seletivos de bolsas em colégios privados.</p></details>
+        <details><summary>O que devo levar às aulas?</summary><p>Siga a orientação da professora sobre os materiais
+            de cada encontro. Para estudar e registrar suas resoluções, tenha caderno e materiais de escrita à mão.</p></details>
+        <details><summary>Preciso usar o celular durante a aula?</summary><p>Não. Durante as aulas, siga as orientações da professora sobre o uso do celular. Você pode aproveitar a trilha e os quizzes
+            deste site em seus momentos de estudo fora da aula.</p></details>
+        <details><summary>Participar aqui já me inscreve no Vestibulinho?</summary><p>Não. A participação
+            no Intensivo, seu perfil e os quizzes são parte da preparação. A inscrição na Etec deve ser feita
+            pelo <a href="https://vestibulinho.etec.sp.gov.br/" target="_blank" rel="noopener noreferrer">portal oficial do Vestibulinho ↗</a>, seguindo o calendário e as instruções disponíveis lá.</p></details>
+        <details><summary>De qual edição são as fotos?</summary><p>Todas as nove fotos do mural são do
+            Intensivo de 2025. No ano que vem, sua turma também pode fazer parte dessa história!</p></details>
+        <details><summary>Minha trilha e os resultados ficam salvos?</summary><p>Sim, quando o navegador
+            permite o armazenamento local. Os dados ficam no dispositivo e navegador que você usa,
+            sem envio para a escola. Limpar os dados do navegador pode apagar esse acompanhamento.</p></details>
+    </div>
+</section>
+
+        <section id="frases"
+            class="frases">
+
+            <p>
+                PARA CONTINUAR
+            </p>
+
+            <blockquote id="quoteText">
+                “Grandes conquistas começam
+                com pequenas decisões.”
+            </blockquote>
+
+            <button id="nextQuote">
+                NOVA FRASE
+            </button>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- CONQUISTA -->
+        <!-- ============================= -->
+
+        <section id="finish"
+            class="final hidden">
+
+            <div>
+
+                <strong>
+                    ✦
+                </strong>
+
+                <p>
+                    100% CONCLUÍDO
+                </p>
+
+                <h2>
+                    MISSÃO CONCLUÍDA
+                </h2>
+
+                <p id="finishText">
+                    Você completou sua jornada
+                    pelo Intensivo.
+                </p>
+
+                <span>
+                    🏆 CONHECIMENTO DESBLOQUEADO
+                </span>
+
+                <br><br>
+
+                <button id="restartBtn">
+                    REINICIAR JORNADA
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- HOMENAGEM -->
+        <!-- ============================= -->
+
+        <section id="homenagem"
+            class="homenagem">
+
+            <p>
+                UMA HOMENAGEM
+            </p>
+
+            <h2>
+                Professora Noemi
+            </h2>
+
+            <blockquote>
+                “Por trás de cada aprovação,
+                existe alguém que decidiu
+                acreditar primeiro.”
+            </blockquote>
+
+            <p>
+                Obrigado por transformar conhecimento
+                em oportunidade, por incentivar sonhos
+                e por mostrar que preparação, dedicação
+                e persistência podem abrir novos caminhos.
+            </p>
+
+            <strong>
+                EMEF Ineura Rodrigues de Lima<br>
+                Narandiba — SP
+            </strong>
+
+        </section>
+
+
+        <!-- RODAPÉ -->
+
+        <footer>
+
+            <span>
+                INTENSIVO • 2025–2026
+            </span>
+
+            <span>
+                Uma homenagem à Professora Noemi
+            </span>
+
+            <small>
+                Criado por Gustavo Paes
+            </small>
+
+        </footer>
+
+    </main>
+
+
+    <!-- ============================= -->
+    <!-- MODAL DO PERFIL -->
+    <!-- ============================= -->
+
+    <div id="profileModal"
+        class="modal hidden">
+
+        <div class="modal-card">
+
+            <button id="closeModal">
+                ×
+            </button>
+
+            <p>
+                ANTES DE COMEÇAR
+            </p>
+
+            <h2>
+                Entre na sua jornada
+            </h2>
+
+
+            <form id="profileForm">
+
+                <label>
+                    Seu nome
+
+                    <input id="nameInput"
+                        type="text"
+                        maxlength="40"
+                        placeholder="Digite seu nome"
+                        required>
+
+                </label>
+
+
+                <label>
+                    Sua turma
+
+                    <select id="classInput"
+                        required>
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option>
+                            9º A
+                        </option>
+
+                        <option>
+                            9º B
+                        </option>
+
+                        <option>
+                            9º C
+                        </option>
+
+                        <option>
+                            9º D
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <fieldset>
+
+                    <legend>
+                        Qual é o seu objetivo?
+                    </legend>
+
+                    <label>
+                        <input type="checkbox"
+                            name="goal"
+                            value="ETEC">
+
+                        ETEC
+                    </label>
+
+                    <label>
+                        <input type="checkbox"
+                            name="goal"
+                            value="Instituto Federal">
+
+                        Instituto Federal
+                    </label>
+
+                    <label>
+                        <input type="checkbox"
+                            name="goal"
+                            value="Escola técnica">
+
+                        Escola técnica
+                    </label>
+
+                    <label>
+                        <input type="checkbox"
+                            name="goal"
+                            value="Ainda decidindo">
+
+                        Ainda estou decidindo
+                    </label>
+
+                </fieldset>
+
+
+                <button type="submit">
+                    ENTRAR NO INTENSIVO →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================= -->
+
+    <!-- Mantém o JavaScript original do projeto. -->
+    <script src="js/script.js"></script>
+    <!-- Banco de questões, correção e atividades. -->
+    <script>
+(() => {
+    'use strict';
+    // Questões de revisão organizadas por área de conhecimento.
+    // Os índices de resposta começam em zero. As alternativas foram reorganizadas.
+    const banco = [
+        { id: 'porcentagem', area: 'Matemática',
+          pergunta: 'Uma pesquisa informa que 25% dos consumidores não recebem sorriso no atendimento. Em uma amostra de 300 pessoas, quantas não recebem sorriso?',
+          opcoes: ['25 pessoas', '50 pessoas', '75 pessoas', '100 pessoas'], correta: 2,
+          explicacao: '25% corresponde a um quarto. Assim, 300 × 25 ÷ 100 = 75 pessoas.' },
+        { id: 'pitagoras', area: 'Matemática',
+          pergunta: 'Um caçador parte de P, anda 6 km para leste, 16 km para sul, 10 km para leste e 4 km para norte. Qual é a distância em linha reta de P até o ponto final?',
+          opcoes: ['12 km', '16 km', '20 km', '36 km'], correta: 2,
+          explicacao: 'O deslocamento horizontal é 6 + 10 = 16 km e o vertical é 16 − 4 = 12 km. Pelo teorema de Pitágoras: d² = 16² + 12² = 400, logo d = 20 km. Os 36 km são o percurso total, não a distância em linha reta.' },
+        { id: 'funcao', area: 'Matemática',
+          pergunta: 'Uma tabela relaciona o dia D e o número de denúncias N: (2, 7), (3, 9), (4, 11), (5, 13) e (6, 15). Qual expressão representa essa relação?',
+          opcoes: ['N = D + 5', 'N = 2D + 3', 'N = 3D + 2', 'N = 2D − 3'], correta: 1,
+          explicacao: 'A cada dia, o número de denúncias aumenta 2. Portanto N = 2D + b. Usando D = 2 e N = 7: 7 = 4 + b, então b = 3. A expressão é N = 2D + 3.' },
+        { id: 'conectivos', area: 'Português',
+          pergunta: 'Os conectivos “porém” e “todavia” estabelecem, em geral, qual relação entre as ideias?',
+          opcoes: ['Adição', 'Conclusão', 'Causa', 'Oposição'], correta: 3,
+          explicacao: '“Porém” e “todavia” são conectivos adversativos: expressam oposição ou contraste, como “mas” e “contudo”.' },
+        { id: 'paronomasia', area: 'Português',
+          pergunta: 'A aproximação entre “insânia” (loucura) e “insônia” (dificuldade para dormir) explora sons semelhantes e sentidos diferentes. Qual é a figura de linguagem?',
+          opcoes: ['Paronomásia', 'Personificação', 'Antítese', 'Metáfora'], correta: 0,
+          explicacao: 'A paronomásia aproxima palavras parecidas no som, mas diferentes no significado. É o caso de “insânia” e “insônia”.' },
+        { id: 'lendas', area: 'Português',
+          pergunta: 'Lendas transmitidas de geração em geração, como as do Curupira e da Matinta Pereira, cumprem qual função social?',
+          opcoes: ['Substituir todas as explicações científicas', 'Preservar a memória coletiva e transmitir valores culturais', 'Apresentar apenas regras de escrita', 'Registrar somente dados econômicos'], correta: 1,
+          explicacao: 'As lendas preservam a memória coletiva, transmitem ensinamentos e valores culturais e ajudam a fortalecer a identidade de um povo.' },
+        { id: 'bandeiras', area: 'História',
+          pergunta: 'No contexto colonial estudado em aula, qual era o objetivo das bandeiras de apresamento?',
+          opcoes: ['Criar reservas de proteção aos povos indígenas', 'Organizar eleições na colônia', 'Capturar indígenas para escravização', 'Instalar fábricas de automóveis'], correta: 2,
+          explicacao: 'As bandeiras de apresamento capturavam indígenas para escravização. A revisão também relaciona essas expedições e as missões portuguesas à expansão da ocupação colonial além de Tordesilhas.' },
+        { id: 'fontes', area: 'História',
+          pergunta: 'Histórias e ensinamentos repassados “de boca em boca” são exemplos de qual tipo de fonte histórica?',
+          opcoes: ['Fonte arqueológica', 'Fonte iconográfica', 'Fonte escrita', 'Fonte oral'], correta: 3,
+          explicacao: 'A expressão “de boca em boca” indica transmissão pela fala. Relatos e tradições transmitidos dessa maneira são fontes orais. A atividade também trabalha interpretação textual.' },
+        { id: 'amazonia', area: 'Geografia',
+          pergunta: 'Qual estado tem parte de seu território na Amazônia Legal, mas pertence à Região Nordeste, e não à Região Norte?',
+          opcoes: ['Maranhão', 'Amazonas', 'Acre', 'Pará'], correta: 0,
+          explicacao: 'O Maranhão pertence à Região Nordeste e parte de seu território integra a Amazônia Legal. Região Norte e Amazônia Legal são recortes diferentes.' },
+        { id: 'acre', area: 'Geografia',
+          pergunta: 'Em qual estado fica o ponto mais ocidental do Brasil, próximo à nascente do rio Moa?',
+          opcoes: ['Paraíba', 'Acre', 'Roraima', 'Rio Grande do Sul'], correta: 1,
+          explicacao: 'O ponto mais ocidental, isto é, mais a oeste, fica no Acre. A revisão distingue esse ponto dos extremos norte, sul e leste do país.' },
+        { id: 'rios', area: 'Geografia',
+          pergunta: 'No conteúdo sobre a Amazônia, a expressão “rios voadores” se refere a quê?',
+          opcoes: ['Afluentes subterrâneos do rio Amazonas', 'Rios que atravessam o oceano Índico', 'Fluxos atmosféricos de vapor de água que transportam umidade', 'Correntes de água líquida acima das árvores'], correta: 2,
+          explicacao: 'São fluxos atmosféricos de vapor de água. A evapotranspiração da floresta contribui para essa umidade, que é transportada e ajuda a formar chuvas em outras regiões.' },
+        { id: 'reflexao', area: 'Ciências',
+          pergunta: 'Naiá observa a imagem da Lua na superfície calma de um lago. Qual fenômeno óptico explica essa imagem?',
+          opcoes: ['Absorção', 'Refração', 'Holografia', 'Reflexão'], correta: 3,
+          explicacao: 'A superfície da água reflete a luz proveniente da Lua e funciona como um espelho. Na reflexão, a luz retorna ao meio em que estava.' },
+        { id: 'evaporacao', area: 'Ciências',
+          pergunta: 'Como a evaporação da água, parte da evapotranspiração da floresta, contribui para o resfriamento do ambiente?',
+          opcoes: ['Absorvendo calor do ambiente para a água passar ao estado gasoso', 'Produzindo gás hidrogênio', 'Separando a água em hidrogênio e oxigênio', 'Impedindo toda a entrada de luz solar'], correta: 0,
+          explicacao: 'A passagem da água do estado líquido para o gasoso exige energia. Ao absorver calor do ambiente, a evaporação contribui para o resfriamento, assim como ocorre quando o suor evapora.' },
+        { id: 'estufa', area: 'Ciências',
+          pergunta: 'Qual processo pode ser intensificado pelo aumento de CO₂ e CH₄ na atmosfera?',
+          opcoes: ['Formação de fontes orais', 'Efeito estufa, contribuindo para o aquecimento global', 'Proteção da Terra contra toda radiação ultravioleta', 'Resfriamento obrigatório de todo o planeta'], correta: 1,
+          explicacao: 'CO₂ e CH₄ são gases de efeito estufa. O efeito estufa natural é necessário à vida, mas sua intensificação pode elevar a temperatura média do planeta. Isso é diferente da proteção oferecida pela camada de ozônio.' }
+    ];
+    const idsSimulado = ['porcentagem', 'conectivos', 'bandeiras', 'amazonia', 'reflexao',
+                         'pitagoras', 'paronomasia', 'fontes', 'acre', 'evaporacao'];
+    const simulado = idsSimulado.map(id => banco.find(q => q.id === id));
+    const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
+    const novoIdTentativa = () => Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+    let tentativaId = novoIdTentativa();
+    let atual = 0;
+    let respostas = [];
+    let areaAtual = null;
+    let rapidoAtual = 0;
+    let rapidoRespondido = false;
+    let retornoRapido = '';
+    const porArea = new Map();
+    const porAreaRespostas = new Map();
+    const notas = new Map();
+    const painelQuiz = document.getElementById('quizContent');
+    const painelRapido = document.getElementById('subjectChallenge');
+    const placar = document.getElementById('quizScore');
+    const contador = document.getElementById('quizCounter');
+    const progresso = document.getElementById('quizProgress');
+
+    function fonte(q) {
+        return `<p class="aula-fonte">${esc(q.area)} · Desafio do Intensivo</p>`;
+    }
+    function questao(q, tipo, selecionada) {
+        const respondida = selecionada !== undefined;
+        return `${fonte(q)}<h3 class="aula-pergunta">${esc(q.pergunta)}</h3>
+            <div class="aula-opcoes">${q.opcoes.map((opcao, i) => {
+                const marca = respondida && i === q.correta ? 'correta' : respondida && i === selecionada ? 'errada' : '';
+                const sufixo = marca === 'correta' ? ' — Resposta correta' : marca === 'errada' ? ' — Sua resposta' : '';
+                return `<button type="button" class="aula-opcao" data-aula-responder="${tipo}" data-indice="${i}"
+                    ${respondida ? 'disabled' : ''} ${marca ? `data-resposta="${marca}"` : ''}>
+                    ${String.fromCharCode(65 + i)}) ${esc(opcao)}${sufixo}</button>`;
+            }).join('')}</div>`;
+    }
+    function retorno(q, selecionada) {
+        return `<strong>${selecionada === q.correta ? 'Você acertou!' : 'Ainda não foi desta vez.'}</strong>
+            <p>Resposta correta: ${String.fromCharCode(65 + q.correta)}) ${esc(q.opcoes[q.correta])}.</p>
+            <p>${esc(q.explicacao)}</p>`;
+    }
+    function totalAcertos() {
+        return respostas.reduce((n, r, i) => n + Number(r === simulado[i].correta), 0);
+    }
+    function desenharQuiz(foco = false) {
+        const fim = atual >= simulado.length;
+        contador.textContent = fim ? 'Quiz concluído' : `Pergunta ${atual + 1} de ${simulado.length}`;
+        placar.textContent = `${totalAcertos()} acerto${totalAcertos() === 1 ? '' : 's'}`;
+        progresso.style.width = `${respostas.length / simulado.length * 100}%`;
+        progresso.parentElement.setAttribute('role', 'progressbar');
+        progresso.parentElement.setAttribute('aria-label', 'Progresso do quiz');
+        progresso.parentElement.setAttribute('aria-valuemin', '0');
+        progresso.parentElement.setAttribute('aria-valuemax', String(simulado.length));
+        progresso.parentElement.setAttribute('aria-valuenow', String(respostas.length));
+        if (fim) {
+            painelQuiz.innerHTML = `<h3 tabindex="-1">Quiz concluído: ${totalAcertos()} de ${simulado.length} acertos</h3>
+                <p>Confira as explicações e retome os conteúdos que merecem uma revisão.</p>
+                <button type="button" class="aula-acao" data-aula-acao="reiniciar-quiz">TENTAR NOVAMENTE →</button>
+                ${simulado.map((q, i) => `<article class="aula-revisao"><h4>${i + 1}. ${esc(q.pergunta)}</h4>
+                    <p>Sua resposta: ${String.fromCharCode(65 + respostas[i])}) ${esc(q.opcoes[respostas[i]])}.</p>
+                    ${retorno(q, respostas[i])}${fonte(q)}</article>`).join('')}`;
+        } else {
+            const q = simulado[atual];
+            const respondida = respostas[atual] !== undefined;
+            painelQuiz.innerHTML = questao(q, 'quiz', respostas[atual]) +
+                `<div class="aula-retorno" role="status" aria-live="polite" ${respondida ? '' : 'hidden'}>${respondida ? retorno(q, respostas[atual]) : ''}</div>` +
+                (respondida ? `<button type="button" class="aula-acao" data-aula-acao="proxima-quiz">${atual === simulado.length - 1 ? 'VER RESULTADO' : 'PRÓXIMA QUESTÃO'} →</button>` : '');
+        }
+        if (foco) {
+            const alvo = painelQuiz.querySelector('[data-aula-acao], h3');
+            if (alvo) { alvo.tabIndex = -1; alvo.focus({preventScroll: true}); }
+        }
+    }
+    function desenharRapido(foco = false) {
+        const lista = banco.filter(q => q.area === areaAtual);
+        const q = lista[rapidoAtual];
+        rapidoRespondido = porAreaRespostas.has(q.id);
+        painelRapido.classList.remove('hidden');
+        painelRapido.innerHTML = `<p class="aula-progresso">${esc(areaAtual)} · Desafio ${rapidoAtual + 1} de ${lista.length}</p>` +
+            questao(q, 'rapido', porAreaRespostas.get(q.id)) +
+            `<div class="aula-retorno" role="status" aria-live="polite" ${rapidoRespondido ? '' : 'hidden'}>${rapidoRespondido ? retornoRapido : ''}</div>` +
+            (rapidoRespondido ? `<label class="aula-reflexao">Como você justificaria essa resposta para seu grupo?
+                <textarea rows="3" maxlength="1200" data-aula-notas="${q.id}" placeholder="Escreva seu raciocínio aqui...">${esc(notas.get(q.id) || '')}</textarea>
+                <small>Sua anotação fica somente nesta página e não é enviada. Compartilhe seu raciocínio e converse sobre as respostas com seus colegas.</small></label>
+                <button type="button" class="aula-acao" data-aula-acao="proximo-rapido">${rapidoAtual === lista.length - 1 ? 'RECOMEÇAR ESTA ÁREA' : 'OUTRO DESAFIO'} →</button>` : '');
+        document.querySelectorAll('#desafios [data-subject]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.subject === areaAtual)));
+        if (foco) { const titulo = painelRapido.querySelector('h3'); titulo.tabIndex = -1; titulo.focus({preventScroll: true}); }
+    }
+    function resetar() {
+        tentativaId = novoIdTentativa();
+        atual = 0; respostas = []; areaAtual = null; rapidoAtual = 0;
+        porArea.clear(); porAreaRespostas.clear(); notas.clear();
+        desenharQuiz(); painelRapido.innerHTML = ''; painelRapido.classList.add('hidden');
+        document.querySelectorAll('#desafios [data-subject]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    }
+    // A captura impede que os mesmos botões acionem também as questões antigas.
+    // O restante dos eventos do script original continua funcionando.
+    window.addEventListener('click', event => {
+        const alvo = event.target instanceof Element ? event.target.closest('button') : null;
+        if (!alvo) return;
+        if (alvo.id === 'restartBtn') { setTimeout(resetar, 0); return; }
+        if (alvo.matches('#desafios [data-subject]')) {
+            event.preventDefault(); event.stopImmediatePropagation();
+            if (!banco.some(q => q.area === alvo.dataset.subject)) return;
+            areaAtual = alvo.dataset.subject; rapidoAtual = porArea.get(areaAtual) || 0;
+            const q = banco.filter(q => q.area === areaAtual)[rapidoAtual];
+            retornoRapido = porAreaRespostas.has(q.id) ? retorno(q, porAreaRespostas.get(q.id)) : '';
+            desenharRapido(true); return;
+        }
+        if (!alvo.matches('[data-aula-responder], [data-aula-acao]')) return;
+        if (!painelQuiz.contains(alvo) && !painelRapido.contains(alvo)) return;
+        event.preventDefault(); event.stopImmediatePropagation();
+        if (alvo.dataset.aulaResponder === 'quiz') {
+            if (respostas[atual] !== undefined || atual >= simulado.length) return;
+            respostas[atual] = Number(alvo.dataset.indice); desenharQuiz();
+            painelQuiz.querySelector('[data-aula-acao]').focus({preventScroll:true});
+        } else if (alvo.dataset.aulaResponder === 'rapido') {
+            if (rapidoRespondido) return;
+            const q = banco.filter(q => q.area === areaAtual)[rapidoAtual];
+            const escolhida = Number(alvo.dataset.indice);
+            porAreaRespostas.set(q.id, escolhida); retornoRapido = retorno(q, escolhida);
+            desenharRapido(); painelRapido.querySelector('[data-aula-acao]').focus({preventScroll:true});
+        } else if (alvo.dataset.aulaAcao === 'proxima-quiz') {
+            if (respostas[atual] === undefined) return;
+            atual++; desenharQuiz(true);
+            if (atual === simulado.length) document.dispatchEvent(new CustomEvent('intensivo:quiz-concluido', {detail: {id: tentativaId, acertos: totalAcertos(), total: simulado.length}}));
+        } else if (alvo.dataset.aulaAcao === 'reiniciar-quiz') {
+            tentativaId = novoIdTentativa();
+            atual = 0; respostas = []; desenharQuiz(true);
+        } else if (alvo.dataset.aulaAcao === 'proximo-rapido') {
+            const lista = banco.filter(q => q.area === areaAtual);
+            rapidoAtual = (rapidoAtual + 1) % lista.length; porArea.set(areaAtual, rapidoAtual);
+            const q = lista[rapidoAtual];
+            // Ao recomeçar, permite responder de novo sem somar pontos do simulado.
+            porAreaRespostas.delete(q.id); retornoRapido = ''; desenharRapido(true);
+        }
+    }, true);
+    painelRapido.addEventListener('input', event => {
+        if (event.target.matches('[data-aula-notas]')) notas.set(event.target.dataset.aulaNotas, event.target.value);
+    });
+    // Espera a inicialização do arquivo original antes de apresentar o novo banco.
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', resetar);
+    else resetar();
+})();
+
+    </script>
+
+<script id="estudosScript">
+(() => {
+    'use strict';
+    const chave = 'intensivo-noemi-estudos-v1';
+    const areas = [
+        { nome: 'Matemática', conteudos: [
+            ['mat-porcentagem', 'Frações, decimais e porcentagem'],
+            ['mat-algebra', 'Álgebra e equações'],
+            ['mat-geometria', 'Geometria e teorema de Pitágoras'],
+            ['mat-estatistica', 'Probabilidade, gráficos e estatística']] },
+        { nome: 'Português', conteudos: [
+            ['port-texto', 'Interpretação e gêneros textuais'],
+            ['port-gramatica', 'Classes de palavras, pronomes e conectivos'],
+            ['port-figuras', 'Figuras de linguagem'],
+            ['port-redacao', 'Redação, coesão e coerência']] },
+        { nome: 'Ciências', conteudos: [
+            ['cie-biologia', 'Células, genética e ecologia'],
+            ['cie-fisica', 'Energia, ondas e óptica'],
+            ['cie-quimica', 'Estrutura atômica e reações químicas'],
+            ['cie-clima', 'Efeito estufa e evapotranspiração']] },
+        { nome: 'História', conteudos: [
+            ['hist-brasil', 'Brasil colonial, imperial e republicano'],
+            ['hist-geral', 'História geral: da Idade Média à Contemporânea'],
+            ['hist-bandeiras', 'Bandeiras e ocupação colonial'],
+            ['hist-fontes', 'Fontes históricas e tradição oral']] },
+        { nome: 'Geografia', conteudos: [
+            ['geo-amazonia', 'Amazônia Legal, Região Norte e biomas'],
+            ['geo-territorio', 'Cartografia e território brasileiro'],
+            ['geo-clima', 'Rios voadores e questões ambientais'],
+            ['geo-sociedade', 'Urbanização e globalização']] }
+    ];
+    const ids = new Set(areas.flatMap(a => a.conteudos.map(c => c[0])));
+    const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
+    let estado = { revisados: [], tentativas: [] };
+    let persistente = true;
+    function normalizar(valor) {
+        if (!valor || typeof valor !== 'object') return { revisados: [], tentativas: [] };
+        const revisados = Array.isArray(valor.revisados) ? [...new Set(valor.revisados.filter(id => ids.has(id)))] : [];
+        const tentativas = Array.isArray(valor.tentativas) ? valor.tentativas.filter(t =>
+            t && typeof t.id === 'string' && t.id.length <= 120 &&
+            Number.isInteger(t.acertos) && Number.isInteger(t.total) && t.total > 0 && t.total <= 100 &&
+            t.acertos >= 0 && t.acertos <= t.total && typeof t.data === 'string' &&
+            Number.isFinite(Date.parse(t.data)))
+            .slice(-50).map(t => ({ id: t.id, data: t.data, acertos: t.acertos, total: t.total })) : [];
+        return { revisados, tentativas };
+    }
+    function carregar() {
+        try {
+            const texto = localStorage.getItem(chave);
+            if (texto) {
+                try { estado = normalizar(JSON.parse(texto)); }
+                catch { estado = { revisados: [], tentativas: [] }; }
+            }
+            // Confere também a escrita, que pode ser bloqueada mesmo quando a leitura funciona.
+            localStorage.setItem(chave, JSON.stringify(estado));
+        } catch { persistente = false; }
+    }
+    function salvar() {
+        try { localStorage.setItem(chave, JSON.stringify(estado)); persistente = true; }
+        catch { persistente = false; }
+        mostrarArmazenamento();
+    }
+    function mostrarArmazenamento() {
+        document.getElementById('estudosArmazenamento').textContent = persistente ?
+            'Suas marcações e resultados ficam neste navegador. Use o mesmo dispositivo para acompanhar sua evolução.' :
+            'O armazenamento está indisponível neste navegador. Seu acompanhamento fica apenas nesta sessão e pode se perder ao fechar ou recarregar a página.';
+        document.getElementById('evolucaoArmazenamento').textContent = persistente ?
+            'Histórico deste navegador, com até 50 tentativas. Limpar o histórico não apaga sua trilha de estudos.' :
+            'Seus resultados ficam apenas nesta sessão. Limpar o histórico não apaga sua trilha de estudos.';
+    }
+    function montarTrilha() {
+        document.getElementById('trilhaConteudos').innerHTML = areas.map(a =>
+            `<div class="trilha-area"><h3>${esc(a.nome)}</h3>
+                <p class="extra-nota">Escolha um tema e acompanhe sua revisão.</p>
+                <ul class="trilha-lista">${a.conteudos.map(([id,titulo]) =>
+                    `<li class="trilha-item" data-conteudo="${id}"><label for="revisao-${id}">
+                        <input type="checkbox" id="revisao-${id}" data-trilha-id="${id}">
+                        <span><strong>${esc(titulo)}</strong><small>Já revisei este conteúdo</small></span></label>
+                        <button type="button" class="trilha-praticar" data-estudos-area="${esc(a.nome)}"
+                            aria-label="Abrir desafios de ${esc(a.nome)}">Praticar ${esc(a.nome)} →</button></li>`).join('')}
+                </ul></div>`).join('');
+        atualizarTrilha();
+    }
+    function atualizarTrilha() {
+        document.querySelectorAll('[data-trilha-id]').forEach(input => {
+            input.checked = estado.revisados.includes(input.dataset.trilhaId);
+            input.closest('.trilha-item').dataset.revisado = String(input.checked);
+        });
+        const quantidade = estado.revisados.length;
+        document.getElementById('trilhaResumo').textContent = `${quantidade} de ${ids.size} conteúdos revisados · ${Math.round(quantidade / ids.size * 100)}%`;
+        const barra = document.getElementById('trilhaBarra'); barra.max = ids.size; barra.value = quantidade;
+    }
+    function percentual(t) { return Math.round(t.acertos / t.total * 100); }
+    function dataFormatada(data) {
+        return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo' }).format(new Date(data));
+    }
+    function mostrarHistorico() {
+        const lista = estado.tentativas;
+        const recente = lista.at(-1);
+        const melhor = lista.reduce((m,t) => !m || percentual(t) > percentual(m) ? t : m, null);
+        document.getElementById('evolucaoTentativas').textContent = String(lista.length);
+        document.getElementById('evolucaoMelhor').textContent = melhor ? `${melhor.acertos}/${melhor.total}` : '—';
+        document.getElementById('evolucaoUltimo').textContent = recente ? `${recente.acertos}/${recente.total}` : '—';
+        let mensagem = 'Seu primeiro resultado começa com uma tentativa.';
+        if (lista.length === 1) mensagem = `Primeira tentativa registrada: ${percentual(recente)}% de acertos. Revise e volte para comparar seu próximo resultado.`;
+        else if (lista.length > 1) {
+            const diferenca = percentual(recente) - percentual(lista[0]);
+            mensagem = diferenca > 0 ? `Seu resultado aumentou ${diferenca} pontos percentuais desde a primeira tentativa deste histórico. Continue estudando!` :
+                diferenca < 0 ? `Seu resultado mais recente ficou ${Math.abs(diferenca)} pontos percentuais abaixo da primeira tentativa deste histórico. Use as explicações do quiz para orientar sua revisão.` :
+                'Seu resultado mais recente está no mesmo percentual da primeira tentativa deste histórico. Retome as questões em que sentiu dificuldade e tente novamente.';
+        }
+        document.getElementById('evolucaoMensagem').textContent = mensagem;
+        document.getElementById('limparHistoricoEstudos').disabled = lista.length === 0;
+        document.getElementById('evolucaoHistorico').innerHTML = lista.length ?
+            `<div class="evolucao-tabela-rolagem"><table class="evolucao-tabela"><caption>Últimas ${Math.min(lista.length,10)} ${lista.length === 1 ? 'tentativa' : 'tentativas'}</caption>
+                <thead><tr><th scope="col">Data e horário</th><th scope="col">Acertos</th><th scope="col">Aproveitamento</th></tr></thead>
+                <tbody>${lista.slice(-10).reverse().map(t => `<tr><td>${esc(dataFormatada(t.data))}</td><td>${t.acertos} de ${t.total}</td><td>${percentual(t)}%</td></tr>`).join('')}</tbody>
+            </table></div>` : '<p>Conclua todas as dez questões e clique em “Ver resultado” para registrar seu primeiro quiz.</p>';
+    }
+    function iniciar() { carregar(); montarTrilha(); mostrarHistorico(); mostrarArmazenamento(); }
+    document.getElementById('trilhaConteudos').addEventListener('change', event => {
+        const input = event.target;
+        if (!(input instanceof HTMLInputElement) || !ids.has(input.dataset.trilhaId)) return;
+        const id = input.dataset.trilhaId;
+        estado.revisados = estado.revisados.filter(x => x !== id);
+        if (input.checked) estado.revisados.push(id);
+        salvar(); atualizarTrilha();
+    });
+    window.addEventListener('click', event => {
+        const button = event.target instanceof Element ? event.target.closest('[data-estudos-area], #limparHistoricoEstudos') : null;
+        if (!button) return;
+        event.preventDefault(); event.stopImmediatePropagation();
+        if (button.id === 'limparHistoricoEstudos') {
+            estado.tentativas = []; salvar(); mostrarHistorico(); return;
+        }
+        const destino = [...document.querySelectorAll('#desafios [data-subject]')].find(b => b.dataset.subject === button.dataset.estudosArea);
+        if (destino) {
+            destino.click();
+            document.getElementById('desafios').scrollIntoView({behavior:'smooth', block:'start'});
+        }
+    }, true);
+    document.addEventListener('intensivo:quiz-concluido', event => {
+        const r = event.detail;
+        if (!r || typeof r.id !== 'string' || !Number.isInteger(r.acertos) || r.total !== 10 ||
+            r.acertos < 0 || r.acertos > r.total || estado.tentativas.some(t => t.id === r.id)) return;
+        estado.tentativas.push({id:r.id, data:new Date().toISOString(), acertos:r.acertos, total:r.total});
+        estado.tentativas = estado.tentativas.slice(-50);
+        salvar(); mostrarHistorico();
+    });
+    window.addEventListener('storage', event => {
+        if (event.key !== chave && event.key !== null) return;
+        carregar(); atualizarTrilha(); mostrarHistorico(); mostrarArmazenamento();
+    });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+    else iniciar();
+})();
+
+</script>
+</body>
+
+</html>
